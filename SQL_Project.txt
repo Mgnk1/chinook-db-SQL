@@ -1,0 +1,34 @@
+/* Query 1 */
+SELECT Genre.Name,COUNT(*) FROM Genre
+JOIN Track ON Track.GenreId=Genre.GenreId
+JOIN InvoiceLine ON InvoiceLine.TrackId=Track.TrackId
+GROUP BY Genre.Name
+ORDER BY COUNT(*) DESC
+
+/* Query 2 */
+SELECT Invoice.CustomerId,SUM(Invoice.Total) AS TI,Customer.City,Customer.FirstName
+fROM Invoice
+JOIN Customer
+ON Invoice.CustomerId=Customer.CustomerId
+GROUP BY Invoice.CustomerId
+ORDER BY Sum(Invoice.Total) DESC
+LIMIT 10;
+
+/* Query 3 */
+SELECT Artist.Name,COUNT(*)
+FROM Artist
+JOIN Album ON Album.ArtistId=Artist.ArtistId
+JOIN Track ON Track.AlbumId=Album.AlbumId
+JOIN InvoiceLine ON InvoiceLine.TrackId=Track.TrackId
+GROUP BY Artist.Name
+ORDER BY COUNT(*) DESC
+LIMIT 10;
+
+/* Query 4 */
+SELECT Employee.FirstName || " " || Employee.LastName as "Sales Rep", SUM(Invoice.Total) as "Total Sales" 
+FROM Employee  
+JOIN Customer ON Employee.EmployeeId == Customer.SupportRepId 
+JOIN Invoice ON Customer.CustomerId == Invoice.CustomerId 
+GROUP BY Employee.FirstName || " " || Employee.LastName 
+ORDER BY SUM(Invoice.Total) DESC 
+
